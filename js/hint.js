@@ -1,6 +1,6 @@
 import { board } from "./board.js";
 import { BOARD_COLS, BOARD_ROWS } from "./config.js";
-import { checkCell } from "./pathfinding.js";
+import { checkCell } from "./path-finding.js";
 
 export function findHint() {
   for (let r1 = 1; r1 < BOARD_ROWS; r1++) {

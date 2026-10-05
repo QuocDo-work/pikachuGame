@@ -1,8 +1,8 @@
 import { board, isBoardClear } from "./board.js";
-import { checkCell } from "./pathfinding.js";
+import { checkCell } from "./path-finding.js";
 import { renderBoard } from "./renderer.js";
-import { drawConnection } from "./pathRender.js";
-import { addScore } from "./Score.js";
+import { drawConnection } from "./path-render.js";
+import { addScore } from "./current-score.js";
 import { startTime } from "./timers.js";
 import { findHint } from "./hint.js";
 import { updateProgress } from "./progress.js";
