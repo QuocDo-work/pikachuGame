@@ -1,0 +1,260 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.header-game {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.header-container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: #45acf5;
+}
+
+.group-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-weight: bold;
+  color: #38bdf8;
+}
+
+.level,
+.current-point,
+.current-time {
+  background: #185ba4;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 12px;
+}
+.fa-star {
+  color: #fdd058;
+  font-size: 20px;
+}
+.fa-clock {
+  color: #6bf3ff;
+  font-size: 20px;
+}
+.contain-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.level-label,
+.points-label,
+.time-label {
+  font-size: 14px;
+  color: #ffffff;
+}
+.level-value,
+.points-value,
+.time-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.sound,
+.pause-game,
+.return-home {
+  width: 36px;
+  height: 36px;
+  background: #185ba4;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.game-main {
+  width: 100%;
+  max-width: 1400px;
+  height: calc(100vh - 90px);
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.game-board {
+  flex: 1;
+  min-width: 0;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 2px solid #cbd5e1;
+  padding: 16px;
+}
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--board-cols), 1fr);
+  grid-template-rows: repeat(var(--board-row), 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  background-color: #4e8fbc;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.cell {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
+}
+
+.cell:hover {
+  transform: scale(1.08);
+  border-color: white;
+}
+
+.cell.empty {
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+}
+.cell.selected {
+  box-shadow: inset 0 0 0 999px rgba(0, 0, 0, 0.25);
+  transform: scale(0.97);
+}
+
+.cell .fruit-image {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.canvas-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* sidebar items */
+.game-sidebar {
+  width: 280px;
+  background: #f0f0f0;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.container-sidebar {
+  margin: 20px;
+  width: 80%;
+}
+.game-sidebar-content {
+  margin: 20px 0;
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #ccc;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+.sidebar-item.end {
+  border-bottom: none;
+}
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.btn-group button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-hint {
+  background-color: #fdd058;
+}
+.btn-shuffle {
+  background-color: #9d79fc;
+}
+.btn-refresh {
+  background-color: #ff6b6b;
+}
+.path-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.connection-line {
+  position: absolute;
+  background: #111;
+  border-radius: 5px;
+}
+.win-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 30px 50px;
+
+  background: white;
+  border-radius: 20px;
+
+  font-size: 40px;
+  font-weight: bold;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  z-index: 100;
+}
+
+.cell.hint {
+  box-shadow: inset 0 0 0 999px rgba(255, 215, 0, 0.45);
+  transform: scale(0.95);
+}

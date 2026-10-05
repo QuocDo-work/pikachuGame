@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>BÒ Ca Chua</title>
+</head>
+
+<body>
+    <div class="header-game">
+        <div class="header-container">
+
+            <div class="logo">Bò Cà Chu</div>
+
+            <div class="group-container">
+                <div class="level">
+                    <div class="contain-level">
+                        <div class="level-label">Màn:</div>
+                        <div class="level-value">1</div>
+                    </div>
+                </div>
+                <div class="current-point">
+                    <div class="points-icon"><i class="fas fa-star"></i></div>
+                    <div class="content-point">
+                        <div class="points-label">
+                            Điểm hiện tại:
+                        </div>
+                        <div class="points-value" id="score">0</div>
+                    </div>
+
+                </div>
+                <div class="current-time">
+                    <div class="time-icon"><i class="fas fa-clock"></i></div>
+                    <div class="contain-time">
+                        <div class="time-label">Thời gian:</div>
+                        <div class="time-value" id="timer">00:00</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="group-container">
+                <div class="sound"><i class="fas fa-volume-up"></i></div>
+                <div class="pause-game"><i class="fas fa-pause"></i></div>
+                <div class="return-home"><i class="fas fa-home"></i></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="game-main">
+        <div class="game-board">
+            <div class="board" id="board"></div>
+        </div>
+        <div class="game-sidebar">
+            <div class="container-sidebar">
+                <div class="process">
+                    <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình <span
+                            id="progressText">0/144 ô</span></div>
+                    <progress id="progress" value="0" max="100"></progress>
+                </div>
+                <div class="game-sidebar-content">
+                    <div class="sidebar-item">
+                        <div class="item-label"><i class="fa-solid fa-trophy"></i> Kỷ lục:</div>
+                        <div class="item-value">0</div>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="item-label"><i class="fa-solid fa-lightbulb"></i>Số lần dùng gợi ý:
+                        </div>
+                        <div class="item-value">0</div>
+                    </div>
+                    <div class="sidebar-item end">
+                        <div class="item-label"><i class="fa-solid fa-shuffle"></i>
+                            Số lần xáo trộn:</div>
+                        <div class="item-value">0</div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
+                    <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo trộn</button>
+                    <button class="btn btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/game.js"></script>
+</body>
+
+</html>
