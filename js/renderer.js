@@ -15,14 +15,15 @@ export function renderBoard() {
 
       const cellElement = document.createElement("div");
 
-      cellElement.className = "cell";
-
       cellElement.dataset.row = r;
       cellElement.dataset.col = c;
 
       if (cellValue === 0) {
-        cellElement.classList.add("empty");
+        cellElement.classList = "cell empty";
+      } else if (cellValue === -1) {
+        cellElement.classList = "cell obstacle";
       } else {
+        cellElement.className = "cell";
         cellElement.style.backgroundColor = boardColors[r][c];
 
         const imgElement = document.createElement("img");

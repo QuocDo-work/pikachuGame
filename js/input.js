@@ -91,7 +91,11 @@ export function setupBoardEvent() {
   boardElement.addEventListener("click", (event) => {
     const cellElement = event.target.closest(".cell");
 
-    if (!cellElement || cellElement.classList.contains("empty")) {
+    if (
+      !cellElement ||
+      cellElement.classList.contains("empty") ||
+      cellElement.classList.contains("obstacle")
+    ) {
       return;
     }
 

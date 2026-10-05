@@ -1,5 +1,5 @@
-export const BOARD_ROWS = 4;
-export const BOARD_COLS = 4;
+export const BOARD_ROWS = 9;
+export const BOARD_COLS = 16;
 
 export const MATRIX_ROWS = BOARD_ROWS + 2;
 export const MATRIX_COLS = BOARD_COLS + 2;

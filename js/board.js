@@ -5,9 +5,11 @@ import {
   MATRIX_COLS,
   CELL_BACKGROUND,
 } from "./config.js";
+import { LEVELS } from "./level-config.js";
 
 export let board = [];
 export let boardColors = [];
+export let obstacles = [];
 
 export function createEmptyMatrix() {
   const matrix = [];
@@ -39,8 +41,7 @@ function shuffleArray(array) {
   return array;
 }
 
-function createPairs() {
-  const totalCells = BOARD_ROWS * BOARD_COLS;
+function createPairs(totalCells) {
   const totalPairs = totalCells / 2;
 
   const pairs = [];
@@ -60,16 +61,25 @@ function getRandomColorBackground() {
   return CELL_BACKGROUND[index];
 }
 
-export function initializeBoard() {
+export function initializeBoard(level = 1) {
   board = createEmptyMatrix();
   boardColors = createColorMatrix();
 
-  const shuffledPairs = createPairs();
+  obstacles = LEVELS[level]?.obstacles || [];
+
+  const ableCells = BOARD_COLS * BOARD_ROWS - obstacles.length;
+
+  const shuffledPairs = createPairs(ableCells);
 
   let index = 0;
 
   for (let r = 1; r <= BOARD_ROWS; r++) {
     for (let c = 1; c <= BOARD_COLS; c++) {
+      if (isObstacle(r, c)) {
+        board[r][c] = -1;
+        continue;
+      }
+
       board[r][c] = shuffledPairs[index++];
       boardColors[r][c] = getRandomColorBackground();
     }
@@ -80,11 +90,14 @@ export function initializeBoard() {
 export function isBoardClear() {
   for (let r = 1; r <= BOARD_ROWS; r++) {
     for (let c = 1; c <= BOARD_COLS; c++) {
-      if (board[r][c] !== 0) {
+      if (board[r][c] > 0) {
         return false;
       }
     }
   }
 
   return true;
+}
+export function isObstacle(r, c) {
+  return obstacles.some(([row, col]) => row === r && col === c);
 }

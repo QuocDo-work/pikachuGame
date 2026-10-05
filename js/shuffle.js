@@ -6,7 +6,7 @@ export function shuffleBoard() {
 
   for (let r = 1; r <= BOARD_ROWS; r++) {
     for (let c = 1; c <= BOARD_COLS; c++) {
-      if (board[r][c] !== 0) {
+      if (board[r][c] > 0) {
         tmp.push(board[r][c]);
       }
     }
@@ -23,7 +23,7 @@ export function shuffleBoard() {
   let index = 0;
   for (let r = 1; r <= BOARD_ROWS; r++) {
     for (let c = 1; c <= BOARD_COLS; c++) {
-      if (board[r][c] !== 0) {
+      if (board[r][c] > 0) {
         board[r][c] = tmp[index];
         index++;
       }
