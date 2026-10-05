@@ -1,4 +1,5 @@
-let timeLeft = 120;
+let timeLeft = 60;
+let timeR = timeLeft;
 let timeID = null;
 
 export function startTime() {
@@ -11,7 +12,7 @@ export function startTime() {
 
     if (timeLeft <= 0) {
       stopTimer();
-      alert("Hết giờ! Bạn đã thua cuộc.");
+      document.dispatchEvent(new CustomEvent("timeUP"));
     }
   }, 1000);
 }
@@ -32,4 +33,13 @@ function updateTimeDisplay() {
 
     timeElement.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }
+}
+
+export function getTimeResult() {
+  const elapsed = timeR - timeLeft;
+
+  const minutes = Math.floor(elapsed / 60);
+  const seconds = elapsed % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }

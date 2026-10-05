@@ -77,13 +77,40 @@
                         <div class="item-value">0</div>
                     </div>
                 </div>
-                <div class="btn-group">
+                <div class="btn-group siderbar">
                     <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
                     <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo trộn</button>
                     <button class="btn btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="game-result hidden" id="game-result">
+        <div class="result-container">
+            <h2 class="result-header">You win</h2>
+
+            <div class="result-infor">
+                <div class="infor-content">
+                    <div class="infor-label">Điểm đạt được</div>
+                    <div class="infor-value" id="result-score">0</div>
+                </div>
+                <div class="infor-content center">
+                    <div class="infor-label">Thời gian</div>
+                    <div class="infor-value" id="result-time">0</div>
+                </div>
+                <div class="infor-content">
+                    <div class="infor-label">Màn</div>
+                    <div class="infor-value">1 / 6</div>
+                </div>
+            </div>
+            <div class="btn-group btn-result">
+                <button class="btn return-menu"><i class="fas fa-home"></i> Về trang chủ</button>
+                <button class="btn replay-level"><i class="fa-solid fa-arrow-rotate-left"></i> Chơi lại</button>
+                <button class="btn next-level"><i class="fa-solid fa-forward"></i> Màn tiếp theo</button>
+            </div>
+        </div>
+
     </div>
 
     <script type="module" src="./js/game.js"></script>

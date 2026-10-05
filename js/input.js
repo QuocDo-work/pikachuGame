@@ -7,6 +7,7 @@ import { startTime } from "./timers.js";
 import { findHint } from "./hint.js";
 import { updateProgress } from "./progress.js";
 import { shuffleBoard } from "./shuffle.js";
+import { showOver, showWin } from "./show-result.js";
 
 let firstSelectedCell = null;
 
@@ -102,15 +103,6 @@ export function setupBoardEvent() {
     handleCellClick(row, col, cellValue, cellElement);
   });
 }
-// màn hình kết thúc (cần update giao diện)
-function showWin() {
-  const message = document.createElement("div");
-
-  message.className = "win-message";
-  message.textContent = "YOU WIN!";
-
-  document.body.appendChild(message);
-}
 
 // hint
 function handleHint() {
@@ -141,4 +133,9 @@ document.getElementById("hint").addEventListener("click", handleHint);
 document.getElementById("shuffle").addEventListener("click", () => {
   shuffleBoard();
   renderBoard();
+});
+
+// GameOver
+document.addEventListener("timeUP", () => {
+  showOver();
 });

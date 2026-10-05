@@ -155,13 +155,6 @@
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
-.canvas-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 10;
-}
 
 /* sidebar items */
 .game-sidebar {
@@ -197,7 +190,7 @@
 .sidebar-item.end {
   border-bottom: none;
 }
-.btn-group {
+.siderbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -235,26 +228,98 @@
   background: #111;
   border-radius: 5px;
 }
-.win-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  padding: 30px 50px;
-
-  background: white;
-  border-radius: 20px;
-
-  font-size: 40px;
-  font-weight: bold;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-
-  z-index: 100;
-}
 
 .cell.hint {
   box-shadow: inset 0 0 0 999px rgba(255, 215, 0, 0.45);
   transform: scale(0.95);
+}
+/* bản kết quả */
+.hidden {
+  display: none !important;
+}
+.game-result {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefbf0;
+  border-radius: 30px;
+  padding: 20px;
+  border: 2px solid #fdf3e3;
+  width: 550px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+.result-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+}
+.game-result.win .result-header {
+  border: 2px solid #58c87a;
+  background-color: #58c87a;
+}
+.game-result.lose .result-header {
+  border: 2px solid #c85863;
+  background-color: #c85863;
+}
+
+.result-infor {
+  display: flex;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #e1d1b9;
+  border-radius: 20px;
+  background-color: #fdf3e3;
+  margin: 20px 0;
+}
+.infor-content.center {
+  border-left: 2px solid #e1d1b9;
+  border-right: 3px solid #e1d1b9;
+}
+.infor-content {
+  width: 50%;
+}
+
+.btn-result {
+  display: flex;
+  gap: 20px;
+}
+.infor-label {
+  color: black;
+  font-size: 18px;
+}
+.infor-value {
+  color: #185ba4;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.replay-level {
+  background-color: #58c87a;
+}
+.return-menu {
+  background-color: #6faffd;
+}
+.next-level {
+  background-color: #fdd058;
 }
