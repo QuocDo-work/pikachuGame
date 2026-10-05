@@ -67,7 +67,6 @@ function handleCellClick(row, col, cellValue, cellElement) {
     addScore();
     startTime();
     updateProgress();
-    shuffleBoard();
 
     setTimeout(() => {
       renderBoard();
