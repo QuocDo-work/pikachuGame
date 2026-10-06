@@ -1,0 +1,123 @@
+.select-level {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sl-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 30px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  background-color: #ba6929;
+  margin: 20px 0;
+  padding: 10px;
+  user-select: none;
+}
+.lv-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.lv-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 30px;
+  padding: 20px;
+  border: 2px solid #e5c98a;
+  background-color: #fff4de;
+}
+.lv-description {
+  padding: 20px;
+  background-color: #e9dfc9;
+  border-radius: 20px;
+  border: 2px solid #ead5b4;
+  color: #334155;
+  margin: 10px 0;
+  height: 120px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  line-height: 1.5;
+}
+.lv-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+}
+.basic {
+  border: 2px solid #58c87a;
+  background-color: #58c87a;
+}
+.obstacle {
+  border: 2px solid #4da3e8;
+  background-color: #4da3e8;
+}
+.night {
+  border: 2px solid #7567d9;
+  background-color: #7567d9;
+}
+
+.play-level {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.play-level:hover {
+  transform: scale(1.08);
+}
+
+.btn-return {
+  position: absolute;
+  bottom: 10%;
+  left: 15%;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  background-color: #ba6929;
+  margin: 20px 0;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.btn-return:hover {
+  transform: scale(1.08);
+}

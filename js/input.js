@@ -4,14 +4,16 @@ import { renderBoard } from "./renderer.js";
 import { drawConnection } from "./path-render.js";
 import { addScore } from "./current-score.js";
 import { startTime } from "./timers.js";
-import { findHint } from "./hint.js";
+import { findHint, revealHint } from "./hint.js";
 import { updateProgress } from "./progress.js";
 import { shuffleBoard } from "./shuffle.js";
 import { showOver, showWin } from "./show-result.js";
+import { clearReveal, isNightMode, revealAround } from "./night.js";
 
 let firstSelectedCell = null;
 
 function selectCell(row, col, cellValue, cellElement) {
+  clearReveal();
   firstSelectedCell = {
     row,
     col,
@@ -20,6 +22,10 @@ function selectCell(row, col, cellValue, cellElement) {
   };
 
   cellElement.classList.add("selected");
+
+  if (isNightMode) {
+    revealAround(row, col);
+  }
 }
 
 function deselectCell() {
@@ -71,6 +77,10 @@ function handleCellClick(row, col, cellValue, cellElement) {
 
     setTimeout(() => {
       renderBoard();
+
+      if (isNightMode()) {
+        clearReveal();
+      }
 
       if (isBoardClear()) {
         showWin();
@@ -133,7 +143,15 @@ function handleHint() {
   }, 1500);
 }
 //btn
-document.getElementById("hint").addEventListener("click", handleHint);
+document.getElementById("hint").addEventListener("click", () => {
+  const hint = findHint();
+  if (!hint) {
+    return;
+  }
+  if (isNightMode()) {
+    revealHint(hint.first, hint.second);
+  }
+});
 document.getElementById("shuffle").addEventListener("click", () => {
   shuffleBoard();
   renderBoard();

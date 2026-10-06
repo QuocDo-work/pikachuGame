@@ -6,81 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./Css/select-level.css">
     <title>BÒ Ca Chua</title>
 </head>
 
 <body>
-    <div class="header-game">
-        <div class="header-container">
+    <div class="game-screen hidden">
+        <div class="header-game">
+            <div class="header-container">
 
-            <div class="logo">Bò Cà Chu</div>
+                <div class="logo">Bò Cà Chu</div>
 
-            <div class="group-container">
-                <div class="level">
-                    <div class="contain-level">
-                        <div class="level-label">Màn:</div>
-                        <div class="level-value">1</div>
-                    </div>
-                </div>
-                <div class="current-point">
-                    <div class="points-icon"><i class="fas fa-star"></i></div>
-                    <div class="content-point">
-                        <div class="points-label">
-                            Điểm hiện tại:
+                <div class="group-container">
+                    <div class="level">
+                        <div class="contain-level">
+                            <div class="level-label">Màn:</div>
+                            <div class="level-value">1</div>
                         </div>
-                        <div class="points-value" id="score">0</div>
                     </div>
+                    <div class="current-point">
+                        <div class="points-icon"><i class="fas fa-star"></i></div>
+                        <div class="content-point">
+                            <div class="points-label">
+                                Điểm hiện tại:
+                            </div>
+                            <div class="points-value" id="score">0</div>
+                        </div>
 
+                    </div>
+                    <div class="current-time">
+                        <div class="time-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contain-time">
+                            <div class="time-label">Thời gian:</div>
+                            <div class="time-value" id="timer">00:00</div>
+                        </div>
+
+
+                    </div>
                 </div>
-                <div class="current-time">
-                    <div class="time-icon"><i class="fas fa-clock"></i></div>
-                    <div class="contain-time">
-                        <div class="time-label">Thời gian:</div>
-                        <div class="time-value" id="timer">00:00</div>
-                    </div>
-
-
+                <div class="group-container">
+                    <div class="sound"><i class="fas fa-volume-up"></i></div>
+                    <div class="pause-game"><i class="fas fa-pause"></i></div>
+                    <div class="return-home"><i class="fas fa-home"></i></div>
                 </div>
             </div>
-            <div class="group-container">
-                <div class="sound"><i class="fas fa-volume-up"></i></div>
-                <div class="pause-game"><i class="fas fa-pause"></i></div>
-                <div class="return-home"><i class="fas fa-home"></i></div>
-            </div>
-        </div>
 
-    </div>
-    <div class="game-main">
-        <div class="game-board">
-            <div class="board" id="board"></div>
         </div>
-        <div class="game-sidebar">
-            <div class="container-sidebar">
-                <div class="process">
-                    <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình <span
-                            id="progressText">0/144 ô</span></div>
-                    <progress id="progress" value="0" max="100"></progress>
-                </div>
-                <div class="game-sidebar-content">
-                    <div class="sidebar-item">
-                        <div class="item-label"><i class="fa-solid fa-trophy"></i> Kỷ lục:</div>
-                        <div class="item-value">0</div>
+        <div class="game-main">
+            <div class="game-board">
+                <div class="board" id="board"></div>
+            </div>
+            <div class="game-sidebar">
+                <div class="container-sidebar">
+                    <div class="process">
+                        <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình <span
+                                id="progressText">0/144 ô</span></div>
+                        <progress id="progress" value="0" max="100"></progress>
                     </div>
-                    <div class="sidebar-item">
-                        <div class="item-label"><i class="fa-solid fa-lightbulb"></i>Số lần dùng gợi ý:
+                    <div class="game-sidebar-content">
+                        <div class="sidebar-item">
+                            <div class="item-label"><i class="fa-solid fa-trophy"></i> Kỷ lục:</div>
+                            <div class="item-value">0</div>
                         </div>
-                        <div class="item-value">0</div>
+                        <div class="sidebar-item">
+                            <div class="item-label"><i class="fa-solid fa-lightbulb"></i>Số lần dùng gợi ý:
+                            </div>
+                            <div class="item-value">0</div>
+                        </div>
+                        <div class="sidebar-item end">
+                            <div class="item-label"><i class="fa-solid fa-shuffle"></i>
+                                Số lần xáo trộn:</div>
+                            <div class="item-value">0</div>
+                        </div>
                     </div>
-                    <div class="sidebar-item end">
-                        <div class="item-label"><i class="fa-solid fa-shuffle"></i>
-                            Số lần xáo trộn:</div>
-                        <div class="item-value">0</div>
+                    <div class="btn-group siderbar">
+                        <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
+                        <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo
+                            trộn</button>
+                        <button class="btn btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới</button>
                     </div>
-                </div>
-                <div class="btn-group siderbar">
-                    <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
-                    <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo trộn</button>
-                    <button class="btn btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới</button>
                 </div>
             </div>
         </div>
@@ -111,6 +115,47 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="select-level" id="select-level">
+        <div class="sl-container">
+            <h3 class="header-title">Chọn màn chơi</h3>
+
+            <div class="lv-layout">
+                <div class="lv-container" data-level="1">
+                    <div class="lv-label basic">Màn 1</div>
+                    <div class="lv-description">Nối các cặp trái cây giống nhau trong tối đa 2 lần rẽ.</div>
+                    <button class="btn play-level basic">Chơi</button>
+                </div>
+                <div class="lv-container" data-level="2">
+                    <div class="lv-label obstacle"> Màn 2 </div>
+                    <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
+                    <button class="btn play-level obstacle">Chơi</button>
+                </div>
+                <div class="lv-container" data-level="3">
+                    <div class="lv-label night">Màn 3</div>
+                    <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
+                    <button class="btn play-level night">Chơi</button>
+                </div>
+                <div class="lv-container">
+                    <div class="lv-label basic">Màn 1</div>
+                    <div class="lv-description">Nối các cặp trái cây giống nhau trong tối đa 2 lần rẽ.</div>
+                    <button class="btn play-level basic">Chơi</button>
+                </div>
+                <div class="lv-container">
+                    <div class="lv-label obstacle"> Màn 2 </div>
+                    <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
+                    <button class="btn play-level obstacle">Chơi</button>
+                </div>
+                <div class="lv-container">
+                    <div class="lv-label night">Màn 3</div>
+                    <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
+                    <button class="btn play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="btn-return"><i class="fa-solid fa-arrow-left"></i> quay về</div>
     </div>
 
     <script type="module" src="./js/game.js"></script>
