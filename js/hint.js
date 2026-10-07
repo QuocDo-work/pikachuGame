@@ -4,8 +4,8 @@ import { clearReveal, isNightMode } from "./night.js";
 import { checkCell } from "./path-finding.js";
 
 export function findHint() {
-  for (let r1 = 1; r1 < BOARD_ROWS; r1++) {
-    for (let c1 = 1; c1 < BOARD_COLS; c1++) {
+  for (let r1 = 1; r1 <= BOARD_ROWS; r1++) {
+    for (let c1 = 1; c1 <= BOARD_COLS; c1++) {
       if (board[r1][c1] <= 0) continue;
 
       for (let r2 = r1; r2 <= BOARD_ROWS; r2++) {
@@ -38,9 +38,7 @@ export function findHint() {
 }
 
 export function revealHint(first, second) {
-  if (!isNightMode) return;
-
-  clearReveal();
+  // clearReveal();
 
   const cells = document.querySelectorAll("#board .cell");
 
@@ -53,15 +51,18 @@ export function revealHint(first, second) {
     const isSecond = r === second.r && c === second.c;
 
     if (isFirst || isSecond) {
-      cell.classList.add("night-hint");
+      cell.classList.add("hint");
+      if (isNightMode()) {
+        cell.classList.add("night-reveal");
+      }
     }
   });
 }
 
 export function clearHint() {
-  const cells = document.querySelectorAll("#board .cell.night-hint");
+  const cells = document.querySelectorAll("#board .cell.hint");
 
   cells.forEach((cell) => {
-    cell.classList.remove("night-hint");
+    cell.classList.remove("hint");
   });
 }

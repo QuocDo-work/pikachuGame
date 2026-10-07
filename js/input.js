@@ -23,7 +23,7 @@ function selectCell(row, col, cellValue, cellElement) {
 
   cellElement.classList.add("selected");
 
-  if (isNightMode) {
+  if (isNightMode()) {
     revealAround(row, col);
   }
 }
@@ -121,17 +121,18 @@ export function setupBoardEvent() {
 // hint
 function handleHint() {
   const hint = findHint();
+
   if (!hint) {
-    alert("khong ton tai hint");
+    alert("Không tìm thấy cặp phù hợp");
     return;
   }
 
   const firstCell = document.querySelector(
-    `.cell[data-row= "${hint.first.r}"][data-col="${hint.first.c}"]`,
+    `.cell[data-row="${hint.first.r}"][data-col="${hint.first.c}"]`,
   );
 
   const secondCell = document.querySelector(
-    `.cell[data-row= "${hint.second.r}"][data-col="${hint.second.c}"]`,
+    `.cell[data-row="${hint.second.r}"][data-col="${hint.second.c}"]`,
   );
 
   firstCell.classList.add("hint");
@@ -142,16 +143,20 @@ function handleHint() {
     secondCell.classList.remove("hint");
   }, 1500);
 }
+
+document.getElementById("hint").addEventListener("click", handleHint);
 //btn
+
 document.getElementById("hint").addEventListener("click", () => {
+  clearReveal();
+
   const hint = findHint();
   if (!hint) {
     return;
   }
-  if (isNightMode()) {
-    revealHint(hint.first, hint.second);
-  }
+  revealHint(hint.first, hint.second);
 });
+
 document.getElementById("shuffle").addEventListener("click", () => {
   shuffleBoard();
   renderBoard();

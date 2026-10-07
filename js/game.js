@@ -3,7 +3,7 @@ import { renderBoard } from "./renderer.js";
 import { setupBoardEvent } from "./input.js";
 import { disableNightMode, enableNightMode } from "./night.js";
 
-let currentLevel = 1;
+export let currentLevel = 1;
 
 function startGame(level) {
   currentLevel = level;
@@ -17,6 +17,8 @@ function startGame(level) {
   }
 
   renderBoard();
+
+  document.getElementById("current-level").textContent = level;
 
   document.querySelector(".game-screen").classList.remove("hidden");
 
@@ -34,4 +36,6 @@ document.querySelectorAll(".play-level").forEach((button) => {
     startGame(level);
   });
 });
+
+
 setupBoardEvent();

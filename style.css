@@ -350,10 +350,3 @@
 .board.night-mode .cell.night-reveal {
   filter: brightness(1);
 }
-
-.board.night-mode .cell.night-hint {
-  filter: brightness(1.2);
-  transform: scale(1.08);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-  z-index: 5;
-}

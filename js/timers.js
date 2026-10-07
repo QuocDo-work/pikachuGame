@@ -1,4 +1,4 @@
-let timeLeft = 60;
+let timeLeft = 180;
 let timeR = timeLeft;
 let timeID = null;
 

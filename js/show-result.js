@@ -1,4 +1,5 @@
 import { getScore } from "./current-score.js";
+import { currentLevel } from "./game.js";
 import { getTimeResult, stopTimer } from "./timers.js";
 
 export function showWin() {
@@ -11,6 +12,8 @@ export function showWin() {
   document.getElementById("result-score").textContent = getScore();
 
   document.getElementById("result-time").textContent = getTimeResult();
+
+  document.getElementById("result-level").textContent = `${currentLevel}`;
 
   document.querySelector(".return-menu").classList.remove("hidden");
 
@@ -33,6 +36,8 @@ export function showOver() {
   document.getElementById("result-score").textContent = getScore();
 
   document.getElementById("result-time").textContent = getTimeResult();
+
+  document.getElementById("result-level").textContent = `${currentLevel}`;
 
   document.querySelector(".return-menu").classList.remove("hidden");
 
