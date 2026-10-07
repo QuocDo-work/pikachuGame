@@ -88,6 +88,10 @@
   border: 2px solid #7567d9;
   background-color: #7567d9;
 }
+.gravity {
+  border: 2px solid #35b8b0;
+  background-color: #35b8b0;
+}
 
 .play-level {
   width: 100%;

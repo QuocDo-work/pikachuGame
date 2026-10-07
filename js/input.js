@@ -8,7 +8,8 @@ import { findHint, revealHint } from "./hint.js";
 import { updateProgress } from "./progress.js";
 import { shuffleBoard } from "./shuffle.js";
 import { showOver, showWin } from "./show-result.js";
-import { clearReveal, isNightMode, revealAround } from "./night.js";
+import { clearReveal, flashBoard, isNightMode, revealAround } from "./night.js";
+import { applyGravity, isGravity } from "./gravity.js";
 
 let firstSelectedCell = null;
 
@@ -70,6 +71,10 @@ function handleCellClick(row, col, cellValue, cellElement) {
     board[firstSelectedCell.row][firstSelectedCell.col] = 0;
     board[row][col] = 0;
 
+    if (isGravity()) {
+      applyGravity();
+    }
+
     deselectCell();
     addScore();
     startTime();
@@ -80,6 +85,7 @@ function handleCellClick(row, col, cellValue, cellElement) {
 
       if (isNightMode()) {
         clearReveal();
+        flashBoard();
       }
 
       if (isBoardClear()) {
@@ -118,40 +124,16 @@ export function setupBoardEvent() {
   });
 }
 
+//btn
 // hint
-function handleHint() {
-  const hint = findHint();
-
-  if (!hint) {
-    alert("Không tìm thấy cặp phù hợp");
-    return;
+document.getElementById("hint").addEventListener("click", () => {
+  if (isNightMode()) {
+    clearReveal();
   }
 
-  const firstCell = document.querySelector(
-    `.cell[data-row="${hint.first.r}"][data-col="${hint.first.c}"]`,
-  );
-
-  const secondCell = document.querySelector(
-    `.cell[data-row="${hint.second.r}"][data-col="${hint.second.c}"]`,
-  );
-
-  firstCell.classList.add("hint");
-  secondCell.classList.add("hint");
-
-  setTimeout(() => {
-    firstCell.classList.remove("hint");
-    secondCell.classList.remove("hint");
-  }, 1500);
-}
-
-document.getElementById("hint").addEventListener("click", handleHint);
-//btn
-
-document.getElementById("hint").addEventListener("click", () => {
-  clearReveal();
-
   const hint = findHint();
   if (!hint) {
+    alert("Không tìm thấy cặp phù hợp!");
     return;
   }
   revealHint(hint.first, hint.second);

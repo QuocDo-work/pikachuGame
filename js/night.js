@@ -12,11 +12,12 @@ export function enableNightMode() {
 
 export function disableNightMode() {
   nightMode = false;
+  clearReveal();
 
   const board = document.getElementById("board");
 
   if (board) {
-    board.classList.remove("night-mode");
+    board.classList.remove("night-mode", "bright");
   }
 }
 
@@ -29,14 +30,14 @@ export function revealAround(row, col) {
 
   const cells = document.querySelectorAll("#board .cell");
 
-  cells.forEach((cells) => {
-    const r = Number(cells.dataset.row);
-    const c = Number(cells.dataset.col);
+  cells.forEach((cell) => {
+    const r = Number(cell.dataset.row);
+    const c = Number(cell.dataset.col);
 
     const distance = Math.abs(r - row) + Math.abs(c - col);
 
     if (distance <= 2) {
-      cells.classList.add("night-reveal");
+      cell.classList.add("night-reveal");
     }
   });
 }
@@ -44,7 +45,18 @@ export function revealAround(row, col) {
 export function clearReveal() {
   const cells = document.querySelectorAll("#board .cell.night-reveal");
 
-  cells.forEach((cells) => {
-    cells.classList.remove("night-reveal");
+  cells.forEach((cell) => {
+    cell.classList.remove("night-reveal");
   });
+}
+
+export function flashBoard() {
+  if (!isNightMode()) return;
+
+  const board = document.getElementById("board");
+  board.classList.add("bright");
+
+  setTimeout(() => {
+    board.classList.remove("bright");
+  }, 1500);
 }

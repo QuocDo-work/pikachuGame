@@ -357,3 +357,7 @@
 .board.night-mode .cell.night-reveal {
   filter: brightness(1);
 }
+#board.night-mode.bright .cell {
+  opacity: 1 !important;
+  filter: brightness(1.3) !important;
+}

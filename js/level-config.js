@@ -57,4 +57,8 @@ export const LEVELS = {
     name: "Night",
     obstacles: [],
   },
+  4: {
+    name: "Gravity",
+    obstacles: [],
+  },
 };
