@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./Css/style.css">
     <link rel="stylesheet" href="./Css/select-level.css">
-    <title>BÒ Ca Chua</title>
+    <link rel="stylesheet" href="./Css/welcome.css">
+    <title>Fruit Match</title>
 </head>
 
 <body>
@@ -15,12 +19,12 @@
         <div class="header-game">
             <div class="header-container">
 
-                <div class="logo">Bò Cà Chu</div>
+                <!-- <div class="logo">Bò Cà Chu</div> -->
 
                 <div class="group-container">
                     <div class="level">
                         <div class="contain-level">
-                            <div class="level-label">Màn:</div>
+                            <div class="level-label"><i class="fa-solid fa-crown"></i> Màn:</div>
                             <div class="level-value" id="current-level">1</div>
                         </div>
                     </div>
@@ -47,7 +51,7 @@
                 <div class="group-container">
                     <div class="sound"><i class="fas fa-volume-up"></i></div>
                     <div class="pause-game"><i class="fas fa-pause"></i></div>
-                    <div class="return-home"><i class="fas fa-home"></i></div>
+                    <div class="return-home" id="return-home"><i class="fas fa-home"></i></div>
                 </div>
             </div>
 
@@ -59,15 +63,10 @@
             <div class="game-sidebar">
                 <div class="container-sidebar">
                     <div class="process">
-                        <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình <span
-                                id="progressText">0/144 ô</span></div>
-                        <progress id="progress" value="0" max="100"></progress>
+                        <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình</div>
+                        <progress id="progress" value="0" max="100"></progress> <span id="progressText">0/144 ô</span>
                     </div>
                     <div class="game-sidebar-content">
-                        <div class="sidebar-item">
-                            <div class="item-label"><i class="fa-solid fa-trophy"></i> Kỷ lục:</div>
-                            <div class="item-value">0</div>
-                        </div>
                         <div class="sidebar-item">
                             <div class="item-label"><i class="fa-solid fa-lightbulb"></i>Số lần dùng gợi ý:
                             </div>
@@ -83,13 +82,14 @@
                         <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
                         <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo
                             trộn</button>
-                        <button class="btn btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới</button>
+                        <button class="btn btn-refresh" id="refresh-game"><i class="fa-solid fa-arrows-rotate"></i> Làm
+                            mới</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- màn hình result -->
     <div class="game-result hidden" id="game-result">
         <div class="result-container">
             <h2 class="result-header">You win</h2>
@@ -109,15 +109,17 @@
                 </div>
             </div>
             <div class="btn-group btn-result">
-                <button class="btn return-menu"><i class="fas fa-home"></i> Về trang chủ</button>
-                <button class="btn replay-level"><i class="fa-solid fa-arrow-rotate-left"></i> Chơi lại</button>
-                <button class="btn next-level"><i class="fa-solid fa-forward"></i> Màn tiếp theo</button>
+                <button class="btn return-menu" id="return-menu"><i class="fas fa-home"></i> Về trang chủ</button>
+                <button class="btn replay-level" id="replay-level"><i class="fa-solid fa-arrow-rotate-left"></i> Chơi
+                    lại</button>
+                <button class="btn next-level" id="next-level"><i class="fa-solid fa-forward"></i> Màn tiếp
+                    theo</button>
             </div>
         </div>
 
     </div>
-
-    <div class="select-level" id="select-level">
+    <!-- màn hình chọn level -->
+    <div class="select-level hidden" id="select-level">
         <div class="sl-container">
             <h3 class="header-title">Chọn màn chơi</h3>
 
@@ -125,39 +127,51 @@
                 <div class="lv-container" data-level="1">
                     <div class="lv-label basic">Màn 1</div>
                     <div class="lv-description">Nối các cặp trái cây giống nhau trong tối đa 2 lần rẽ.</div>
-                    <button class="btn play-level basic">Chơi</button>
+                    <button class=" play-level basic"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
                 <div class="lv-container" data-level="2">
                     <div class="lv-label obstacle"> Màn 2 </div>
                     <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
-                    <button class="btn play-level obstacle">Chơi</button>
+                    <button class=" play-level obstacle"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
                 <div class="lv-container" data-level="3">
                     <div class="lv-label night">Màn 3</div>
                     <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
-                    <button class="btn play-level night">Chơi</button>
+                    <button class=" play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
                 <div class="lv-container" data-level="4">
                     <div class="lv-label gravity">Màn 4</div>
                     <div class="lv-description">Trọng lực đảo chiều liên tục! Ăn 3 cặp là bàn cờ lại sụt lở sang hướng
                         mới.
                     </div>
-                    <button class="btn play-level gravity">Chơi</button>
+                    <button class=" play-level gravity"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
                 <div class="lv-container">
                     <div class="lv-label obstacle"> Màn 2 </div>
                     <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
-                    <button class="btn play-level obstacle">Chơi</button>
+                    <button class=" play-level obstacle"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
                 <div class="lv-container">
                     <div class="lv-label night">Màn 3</div>
                     <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
-                    <button class="btn play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
+                    <button class=" play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
                 </div>
             </div>
 
         </div>
-        <div class="btn-return"><i class="fa-solid fa-arrow-left"></i> quay về</div>
+        <div class="btn-return" id="btn-return"><i class="fa-solid fa-arrow-left"></i> quay về</div>
+    </div>
+    <!-- màn hình welcome -->
+    <div class="welcome-main">
+        <div class="welcome-container">
+            <div class="header-welcome">Fruit Match</div>
+            <div class="group-btn-welcome">
+                <div class="btn btn-play"><i class="fa-solid fa-play"></i> Chơi ngay</div>
+                <div class="btn btn-select-lv"><i class="fa-solid fa-leaf"></i> Chọn màn chơi</div>
+                <div class="btn instruct"><i class="fa-brands fa-readme"></i> Hướng dẫn</div>
+            </div>
+        </div>
+
     </div>
 
     <script type="module" src="./js/game.js"></script>

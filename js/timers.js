@@ -1,10 +1,14 @@
-let timeLeft = 180;
-let timeR = timeLeft;
+const TOTAL_TIME = 180;
+let timeLeft = TOTAL_TIME;
+let timeR = TOTAL_TIME;
 let timeID = null;
 
 export function startTime() {
   stopTimer();
   updateTimeDisplay();
+
+  timeLeft = TOTAL_TIME;
+  timeR = TOTAL_TIME;
 
   timeID = setInterval(() => {
     timeLeft--;

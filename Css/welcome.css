@@ -1,0 +1,73 @@
+.welcome-main {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/main-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+}
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 30px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  border: 2px solid #e5c98a;
+  background-color: #fff4de;
+  width: 40%;
+}
+.header-welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  background-color: #ba6929;
+  margin: 20px 0;
+  padding: 10px;
+  user-select: none;
+}
+.group-btn-welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.btn {
+  width: 50%;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid #e5c98a;
+}
+.btn-play {
+  background-color: #fdd058;
+}
+.btn-select-lv {
+  border: 2px solid #4da3e8;
+  background-color: #4da3e8;
+}
+.instruct {
+  border: 2px solid #35b8b0;
+  background-color: #35b8b0;
+}

@@ -8,8 +8,15 @@ import { findHint, revealHint } from "./hint.js";
 import { updateProgress } from "./progress.js";
 import { shuffleBoard } from "./shuffle.js";
 import { showOver, showWin } from "./show-result.js";
-import { clearReveal, flashBoard, isNightMode, revealAround } from "./night.js";
+import {
+  clearReveal,
+  disableNightMode,
+  flashBoard,
+  isNightMode,
+  revealAround,
+} from "./night.js";
 import { applyGravity, isGravity } from "./gravity.js";
+import { currentLevel, startGame } from "./game.js";
 
 let firstSelectedCell = null;
 
@@ -142,6 +149,31 @@ document.getElementById("hint").addEventListener("click", () => {
 document.getElementById("shuffle").addEventListener("click", () => {
   shuffleBoard();
   renderBoard();
+});
+
+// quay lại & trang chủ
+document.getElementById("return-home").addEventListener("click", () => {
+  disableNightMode();
+  document.querySelector(".game-screen").classList.add("hidden");
+  document.querySelector(".welcome-main").classList.remove("hidden");
+});
+
+document.getElementById("btn-return").addEventListener("click", () => {
+  document.querySelector(".select-level").classList.add("hidden");
+  document.querySelector(".welcome-main").classList.remove("hidden");
+});
+
+document.getElementById("return-menu").addEventListener("click", () => {
+  document.querySelector(".game-result").classList.add("hidden");
+  document.querySelector(".game-screen").classList.add("hidden");
+  document.querySelector(".welcome-main").classList.remove("hidden");
+});
+document.getElementById("replay-level").addEventListener("click", () => {
+  document.getElementById("game-result").classList.add("hidden");
+  startGame(currentLevel);
+});
+document.getElementById("refresh-game").addEventListener("click", () => {
+  startGame(currentLevel);
 });
 
 // GameOver

@@ -5,7 +5,7 @@ import { disableNightMode, enableNightMode } from "./night.js";
 
 export let currentLevel = 1;
 
-function startGame(level) {
+export function startGame(level) {
   currentLevel = level;
 
   initializeBoard(level);
@@ -20,10 +20,20 @@ function startGame(level) {
 
   document.getElementById("current-level").textContent = level;
 
+  document.querySelector(".welcome-main").classList.add("hidden");
+
   document.querySelector(".game-screen").classList.remove("hidden");
 
   document.querySelector(".select-level").classList.add("hidden");
 }
+
+document.querySelector(".btn-play").addEventListener("click", () => {
+  startGame(1);
+});
+document.querySelector(".btn-select-lv").addEventListener("click", () => {
+  document.querySelector(".welcome-main").classList.add("hidden");
+  document.querySelector(".select-level").classList.remove("hidden");
+});
 
 document.querySelectorAll(".play-level").forEach((button) => {
   button.addEventListener("click", () => {
@@ -36,6 +46,5 @@ document.querySelectorAll(".play-level").forEach((button) => {
     startGame(level);
   });
 });
-
 
 setupBoardEvent();

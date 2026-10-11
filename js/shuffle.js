@@ -1,5 +1,6 @@
 import { board } from "./board.js";
 import { BOARD_COLS, BOARD_ROWS } from "./config.js";
+import { findHint } from "./hint.js";
 
 export function shuffleBoard() {
   const tmp = [];
@@ -29,4 +30,11 @@ export function shuffleBoard() {
       }
     }
   }
+}
+export function autoShuffle() {
+  while (!findHint()) {
+    console.log("Hết nước đi! Tự động xáo trộn lại bàn cờ...");
+    shuffleBoard();
+  }
+  renderBoard();
 }
