@@ -786,7 +786,8 @@ function updateProgress() {
   const percent = (complete / total) * 100;
 
   document.getElementById("progress").value = percent;
-  document.getElementById("progressText").textContent = `${complete}/${total}ô`;
+  document.getElementById("progressText").textContent =
+    `${complete}/${total} ô`;
 }
 
 // gợi ý trò chơi
