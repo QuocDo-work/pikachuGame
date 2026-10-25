@@ -184,6 +184,8 @@ function initializeBoard(level = 1) {
 
   matchCount = 0;
 
+  resetGravity();
+
   updateProgress();
 
   resetScore();
