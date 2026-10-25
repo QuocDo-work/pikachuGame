@@ -741,6 +741,114 @@
         .frozen {
             position: relative;
         }
+
+        /* giao diện hướng dẫn */
+
+        .guide-btn {
+            padding: 12px 24px;
+            border: 2px solid #f2cf8b;
+            border-radius: 25px;
+            background: #4da3e8;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .guide-btn:hover {
+            background: #3289d0;
+            transform: translateY(-2px);
+        }
+
+        .guide-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: rgba(30, 50, 65, 0.65);
+        }
+
+        .guide-modal.hidden {
+            display: none;
+        }
+
+        .guide-content {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 25px;
+            border: 3px solid #f2cf8b;
+            border-radius: 25px;
+            background: #fff4df;
+            color: #46566b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .guide-content h2 {
+            margin: 0 30px 22px;
+            color: #b96a2a;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .guide-section {
+            margin-bottom: 16px;
+            padding: 14px 16px;
+            border: 1px solid #f2cf8b;
+            border-radius: 16px;
+            background: #fffaf0;
+        }
+
+        .guide-section h3 {
+            margin: 0 0 10px;
+            color: #b96a2a;
+            font-size: 17px;
+        }
+
+        .guide-section p {
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .close-guide {
+            position: absolute;
+            top: 8px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            color: #b96a2a;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .close-guide:hover {
+            background: #f0e2c7;
+        }
+
+        .understood-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: none;
+            border-radius: 25px;
+            background: #50c878;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
     </style>
 </head>
 
@@ -917,11 +1025,64 @@
             <div class="group-btn-welcome">
                 <div class="btn btn-play"> Chơi ngay</div>
                 <div class="btn btn-select-lv"> Chọn màn chơi</div>
-                <div class="btn instruct"></i> Hướng dẫn</div>
+                <div class="btn instruct" id="guide-btn">Hướng dẫn</div>
             </div>
         </div>
 
     </div>
+
+    <!-- Nút mở hướng dẫn -->
+
+    <!-- Modal hướng dẫn -->
+    <div id="guide-modal" class="guide-modal hidden">
+        <div class="guide-content">
+            <button id="close-guide" class="close-guide" aria-label="Đóng">
+                &times;
+            </button>
+
+            <h2>HƯỚNG DẪN CHƠI</h2>
+
+            <div class="guide-section">
+                <h3>1. Luật chơi</h3>
+                <p>Tìm và nối hai ô pokemon giống nhau để loại bỏ chúng khỏi bàn cờ.</p>
+                <p>Đường nối không được đi xuyên qua các ô đang bị chiếm và chỉ được rẽ tối đa 2 lần.</p>
+                <p>Hoàn thành mục tiêu của màn chơi trước khi hết thời gian.</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>2. Các nút hỗ trợ</h3>
+                <p><b>Gợi ý:</b> Hiển thị một cặp pokemon có thể nối với nhau.</p>
+                <p><b>Xáo bài:</b> Sắp xếp lại vị trí pokemon trên bàn cờ.</p>
+                <p><b>Chơi lại:</b> Bắt đầu lại màn chơi hiện tại.</p>
+                <p><b>Về menu:</b> Quay lại màn hình chính.</p>
+                <p><b>Qua màn:</b> Chuyển sang màn tiếp theo sau khi chiến thắng.</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>3. Thử thách 7 màn</h3>
+                <p><b>Màn 1 - Classic:</b> Nối các cặp pokemon giống nhau.</p>
+                <p><b>Màn 2 - Obstacle:</b> Tìm đường nối và tránh chướng ngại vật.</p>
+                <p><b>Màn 3 - Night Mode:</b> Ghi nhớ vị trí pokemon trong bóng tối.</p>
+                <p><b>Màn 4 - Gravity:</b> Ghép cặp để kích hoạt sự thay đổi trọng lực.</p>
+                <p><b>Màn 5 - Paradox:</b> Thích nghi với sự thay đổi của bàn cờ.</p>
+                <p><b>Màn 6 - Frozen:</b> Phá băng các ô bị đóng băng bằng những nước ghép hợp lý.</p>
+                <p><b>Màn 7 - Boss:</b> Ghép các cặp pokemon để gây sát thương và đánh bại Boss.</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>4. Mẹo chơi</h3>
+                <p>Quan sát kỹ bàn cờ trước khi ghép các cặp pokemon.</p>
+                <p>Ưu tiên các cặp dễ nối để mở rộng đường đi.</p>
+                <p>Sử dụng Gợi ý khi bí và Xáo bài khi khó tìm được cặp phù hợp.</p>
+                <p>Chú ý cơ chế đặc biệt của từng màn để lựa chọn chiến thuật phù hợp.</p>
+            </div>
+
+            <button id="understood-btn" class="understood-btn">
+                Đã hiểu! Bắt đầu chơi
+            </button>
+        </div>
+    </div>
+
 
     <script src="./game.js"></script>
 

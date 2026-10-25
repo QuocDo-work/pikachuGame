@@ -718,7 +718,7 @@ function resetScore() {
 }
 
 //Thời gian màn chơi
-const TOTAL_TIME = 180;
+const TOTAL_TIME = 300;
 let timeLeft = TOTAL_TIME;
 let timeR = TOTAL_TIME;
 let timeID = null;
@@ -1213,7 +1213,7 @@ function breakIce(r1, c1, r2, c2) {
 
 // 6- Boss
 
-const BOSS_MAX_HP = 20;
+const BOSS_MAX_HP = 25;
 let bossHP = BOSS_MAX_HP;
 let matchCount = 0;
 const HEAL_HP_TIME = 15;
@@ -1407,6 +1407,8 @@ function nextLevel() {
     startGame(currentLevel + 1);
   } else {
     alert("Chúc mừng! Bạn đã hoàn thành tất cả các màn!");
+    document.querySelector(".game-screen").classList.add("hidden");
+    document.querySelector(".welcome-main").classList.remove("hidden");
   }
 }
 
@@ -1489,6 +1491,27 @@ document.querySelectorAll(".play-level").forEach((button) => {
 
     startGame(level);
   });
+});
+
+//Hướng dẫn
+const guideModal = document.getElementById("guide-modal");
+const guideButton = document.getElementById("guide-btn");
+const closeGuideButton = document.getElementById("close-guide");
+const understoodButton = document.getElementById("understood-btn");
+
+// Mở hướng dẫn
+guideButton.addEventListener("click", () => {
+  guideModal.classList.remove("hidden");
+});
+
+// Đóng bằng nút X
+closeGuideButton.addEventListener("click", () => {
+  guideModal.classList.add("hidden");
+});
+
+// Đóng bằng nút Đã hiểu
+understoodButton.addEventListener("click", () => {
+  guideModal.classList.add("hidden");
 });
 
 // khởi động trò chơi
