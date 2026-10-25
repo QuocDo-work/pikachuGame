@@ -4,14 +4,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="./Css/style.css">
-    <link rel="stylesheet" href="./Css/select-level.css">
-    <link rel="stylesheet" href="./Css/welcome.css">
-    <title>Fruit Match</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>POKEMON HIỆN ĐẠI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Baloo 2", sans-serif;
+        }
+
+        .game-screen {
+            background-image: url("../assets/main-background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .header-game {
+            padding-top: 50px;
+            padding-bottom: 40px;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .header-container {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 30px;
+            background-color: #45acf5;
+        }
+
+        .group-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .level,
+        .current-point,
+        .current-time {
+            background: #185ba4;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 6px 12px;
+        }
+
+        .fa-star {
+            color: #fdd058;
+            font-size: 20px;
+        }
+
+        .fa-clock {
+            color: #6bf3ff;
+            font-size: 20px;
+        }
+
+        .contain-level {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-label,
+        .points-label,
+        .time-label {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .level-value,
+        .points-value,
+        .time-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .return-home {
+            background: #185ba4;
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .game-main {
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 90px);
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .game-board {
+            flex: 1;
+            min-width: 0;
+            background-color: #193c85;
+            border-radius: 16px;
+            border: 2px solid #cbd5e1;
+            background-clip: content-box;
+            padding: 16px;
+
+            display: flex;
+            align-items: center;
+            width: 1060px;
+            height: 565px;
+        }
+
+        .board {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(var(--board-cols), 45px);
+            width: fit-content;
+            grid-template-rows: repeat(var(--board-row), 45px);
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2px;
+            cursor: pointer;
+            user-select: none;
+            transition:
+                transform 0.1s,
+                border-color 0.1s;
+        }
+
+        .cell:hover {
+            transform: scale(1.08);
+            border-color: white;
+        }
+
+        .cell.empty {
+            background: transparent !important;
+            border: none;
+            box-shadow: none;
+            visibility: visible;
+        }
+
+        .cell.selected {
+            box-shadow: inset 0 0 0 999px rgba(0, 0, 0, 0.25);
+            transform: scale(0.97);
+        }
+
+        .cell .fruit-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            pointer-events: none;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        /* sidebar items */
+        .game-sidebar {
+            width: 280px;
+            height: 565px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        progress {
+            width: 150px;
+            height: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            accent-color: #38bdf8;
+        }
+
+        .container-sidebar {
+            margin: 20px;
+            width: 80%;
+        }
+
+        .game-sidebar-content {
+            margin: 20px 0;
+            background: white;
+            border-radius: 20px;
+            border: 2px solid #ccc;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .sidebar-item.end {
+            border-bottom: none;
+        }
+
+        .siderbar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-group button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-hint {
+            background-color: #fdd058;
+        }
+
+        .btn-shuffle {
+            background-color: #9d79fc;
+        }
+
+        .btn-refresh {
+            background-color: #ff6b6b;
+        }
+
+        .path-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: #22b14c;
+            border-radius: 5px;
+        }
+
+        .cell.hint {
+            box-shadow: inset 0 0 0 999px rgba(255, 215, 0, 0.45);
+            transform: scale(0.95);
+        }
+
+        /* bản kết quả */
+        .hidden {
+            display: none !important;
+        }
+
+        .game-result {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefbf0;
+            border-radius: 30px;
+            padding: 20px;
+            border: 2px solid #fdf3e3;
+            width: 550px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .game-result.win .result-header {
+            border: 2px solid #58c87a;
+            background-color: #58c87a;
+        }
+
+        .game-result.lose .result-header {
+            border: 2px solid #c85863;
+            background-color: #c85863;
+        }
+
+        .result-infor {
+            display: flex;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #e1d1b9;
+            border-radius: 20px;
+            background-color: #fdf3e3;
+            margin: 20px 0;
+        }
+
+        .infor-content.center {
+            border-left: 2px solid #e1d1b9;
+            border-right: 3px solid #e1d1b9;
+        }
+
+        .infor-content {
+            width: 50%;
+        }
+
+        .btn-result {
+            display: flex;
+            gap: 20px;
+        }
+
+        .infor-label {
+            color: black;
+            font-size: 18px;
+        }
+
+        .infor-value {
+            color: #185ba4;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .replay-level {
+            background-color: #58c87a;
+        }
+
+        .return-menu {
+            background-color: #6faffd;
+        }
+
+        .next-level {
+            background-color: #fdd058;
+        }
+
+        /* leve2 */
+        .cell.obstacle {
+            background-color: #64748b;
+            border: 2px solid #475569;
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+        }
+
+        .cell.obstacle,
+        .cell.obstacle:hover {
+            transform: none !important;
+            cursor: default;
+        }
+
+        /* level 3 */
+
+        .board.night-mode .cell {
+            filter: brightness(0.15);
+            transition: filter 0.2s ease;
+        }
+
+        .board.night-mode .cell.empty,
+        .board.night-mode .cell.obstacle {
+            filter: brightness(0.1);
+        }
+
+        .board.night-mode .cell.night-reveal {
+            filter: brightness(1);
+        }
+
+        #board.night-mode.bright .cell {
+            opacity: 1 !important;
+            filter: brightness(1.3) !important;
+        }
+
+        /* Chọn level */
+        .select-level {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("../assets/main-background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sl-container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 30px;
+            padding: 20px;
+            position: fixed;
+            width: 1300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .header-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 20px;
+            background-color: #ba6929;
+            margin: 20px 0;
+            padding: 10px;
+            user-select: none;
+        }
+
+        .lv-layout {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .lv-container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 30px;
+            padding: 20px;
+            border: 2px solid #e5c98a;
+            background-color: #fff4de;
+        }
+
+        .lv-description {
+            padding: 20px;
+            background-color: #e9dfc9;
+            border-radius: 20px;
+            border: 2px solid #ead5b4;
+            color: #334155;
+            margin: 10px 0;
+            height: 120px;
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .lv-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 0;
+        }
+
+        .basic {
+            border: 2px solid #58c87a;
+            background-color: #58c87a;
+        }
+
+        .obstacle {
+            border: 2px solid #4da3e8;
+            background-color: #4da3e8;
+        }
+
+        .night {
+            border: 2px solid #7567d9;
+            background-color: #7567d9;
+        }
+
+        .gravity {
+            border: 2px solid #35b8b0;
+            background-color: #35b8b0;
+        }
+
+        .paradox {
+            border: 2px solid #f0a044;
+            background-color: #f0a044;
+        }
+
+        .frozen {
+            border: 2px solid #55bdeb;
+            background-color: #55bdeb;
+        }
+
+        .boss {
+            border: 2px solid #e45b62;
+            background-color: #e45b62;
+        }
+
+        .play-level {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .play-level:hover {
+            transform: scale(1.08);
+        }
+
+        .btn-return {
+            position: absolute;
+            bottom: 20%;
+            right: 15%;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 20px;
+            background-color: #ba6929;
+            margin: 20px 0;
+            padding: 10px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 80;
+        }
+
+        .btn-return:hover {
+            transform: scale(1.08);
+        }
+
+        /* Màn hình welcome */
+        .welcome-main {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("../assets/main-background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 30px;
+            padding: 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            border: 2px solid #e5c98a;
+            background-color: #fff4de;
+            width: 40%;
+        }
+
+        .header-welcome {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 20px;
+            background-color: #ba6929;
+            margin: 20px 0;
+            padding: 10px;
+            user-select: none;
+        }
+
+        .group-btn-welcome {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            width: 50%;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #e5c98a;
+        }
+
+        .btn-play {
+            background-color: #fdd058;
+        }
+
+        .btn-select-lv {
+            border: 2px solid #4da3e8;
+            background-color: #4da3e8;
+        }
+
+        .instruct {
+            border: 2px solid #35b8b0;
+            background-color: #35b8b0;
+        }
+
+        /* boss */
+
+        #boss-panel {
+            background: #fff;
+            padding: 16px 20px;
+            margin: 10px auto;
+            border-radius: 14px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 3px 8px #0002;
+            display: none;
+        }
+
+        .boss-mess {
+            padding: 20px;
+            max-width: 300px;
+        }
+
+        .boss-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boss-img img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-5px);
+            }
+        }
+
+        .boss-hp-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .boss-hp-track {
+            width: 100%;
+            height: 14px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #boss-hp-bar {
+            width: 100%;
+            height: 100%;
+            background: #ef4444;
+            transition: width 0.3s ease;
+        }
+
+        /* frozen */
+
+        .ice-overlay {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .frozen {
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,17 +749,14 @@
         <div class="header-game">
             <div class="header-container">
 
-                <!-- <div class="logo">Bò Cà Chu</div> -->
-
                 <div class="group-container">
                     <div class="level">
                         <div class="contain-level">
-                            <div class="level-label"><i class="fa-solid fa-crown"></i> Màn:</div>
+                            <div class="level-label">Màn:</div>
                             <div class="level-value" id="current-level">1</div>
                         </div>
                     </div>
                     <div class="current-point">
-                        <div class="points-icon"><i class="fas fa-star"></i></div>
                         <div class="content-point">
                             <div class="points-label">
                                 Điểm hiện tại:
@@ -39,7 +766,6 @@
 
                     </div>
                     <div class="current-time">
-                        <div class="time-icon"><i class="fas fa-clock"></i></div>
                         <div class="contain-time">
                             <div class="time-label">Thời gian:</div>
                             <div class="time-value" id="timer">00:00</div>
@@ -49,40 +775,52 @@
                     </div>
                 </div>
                 <div class="group-container">
-                    <div class="sound"><i class="fas fa-volume-up"></i></div>
-                    <div class="pause-game"><i class="fas fa-pause"></i></div>
-                    <div class="return-home" id="return-home"><i class="fas fa-home"></i></div>
+                    <div class="return-home" id="return-home"> về màn hình chính</div>
                 </div>
             </div>
 
         </div>
         <div class="game-main">
             <div class="game-board">
+                <div class="boss-main" id="boss-panel">
+                    <div class="boss-mess" id="boss-mess"></div>
+                    <div class="boss-img">
+                        <img src="./assets/Boss.png" alt="">
+                    </div>
+
+                    <div class="boss-hp-label">
+                        HP: <span id="boss-hp">0</span>/<span id="boss-max-hp">100</span>
+                    </div>
+
+                    <div class="boss-hp-track">
+                        <div id="boss-hp-bar"></div>
+                    </div>
+                </div>
                 <div class="board" id="board"></div>
             </div>
             <div class="game-sidebar">
                 <div class="container-sidebar">
                     <div class="process">
-                        <div class="process_label"><i class="fa-solid fa-tasks"></i> Tiến trình</div>
+                        <div class="process_label"> Tiến trình</div>
                         <progress id="progress" value="0" max="100"></progress> <span id="progressText">0/144 ô</span>
                     </div>
                     <div class="game-sidebar-content">
                         <div class="sidebar-item">
-                            <div class="item-label"><i class="fa-solid fa-lightbulb"></i>Số lần dùng gợi ý:
+                            <div class="item-label">Số lần dùng gợi ý:
                             </div>
-                            <div class="item-value">0</div>
+                            <div class="item-value" id="hint-count">0</div>
                         </div>
                         <div class="sidebar-item end">
-                            <div class="item-label"><i class="fa-solid fa-shuffle"></i>
+                            <div class="item-label">
                                 Số lần xáo trộn:</div>
-                            <div class="item-value">0</div>
+                            <div class="item-value" id="shuffle-count">0</div>
                         </div>
                     </div>
                     <div class="btn-group siderbar">
-                        <button class="btn btn-hint" id="hint"><i class="fa-solid fa-lightbulb"></i></i> Gợi ý</button>
-                        <button class="btn btn-shuffle" id="shuffle"><i class="fa-solid fa-shuffle"></i> Xáo
+                        <button class="btn btn-hint" id="hint"> Gợi ý</button>
+                        <button class="btn btn-shuffle" id="shuffle"> Xáo
                             trộn</button>
-                        <button class="btn btn-refresh" id="refresh-game"><i class="fa-solid fa-arrows-rotate"></i> Làm
+                        <button class="btn btn-refresh" id="refresh-game"> Làm
                             mới</button>
                     </div>
                 </div>
@@ -109,10 +847,10 @@
                 </div>
             </div>
             <div class="btn-group btn-result">
-                <button class="btn return-menu" id="return-menu"><i class="fas fa-home"></i> Về trang chủ</button>
-                <button class="btn replay-level" id="replay-level"><i class="fa-solid fa-arrow-rotate-left"></i> Chơi
+                <button class="btn return-menu" id="return-menu">Về trang chủ</button>
+                <button class="btn replay-level" id="replay-level"> Chơi
                     lại</button>
-                <button class="btn next-level" id="next-level"><i class="fa-solid fa-forward"></i> Màn tiếp
+                <button class="btn next-level" id="next-level"> Màn tiếp
                     theo</button>
             </div>
         </div>
@@ -126,35 +864,47 @@
             <div class="lv-layout">
                 <div class="lv-container" data-level="1">
                     <div class="lv-label basic">Màn 1</div>
-                    <div class="lv-description">Nối các cặp trái cây giống nhau trong tối đa 2 lần rẽ.</div>
-                    <button class=" play-level basic"><i class="fa-solid fa-play"></i> Chơi</button>
+                    <div class="lv-description">Nối các cặp pokemon giống nhau trong tối đa 2 lần rẽ.</div>
+                    <button class=" play-level basic"> Chơi</button>
                 </div>
                 <div class="lv-container" data-level="2">
                     <div class="lv-label obstacle"> Màn 2 </div>
-                    <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
-                    <button class=" play-level obstacle"><i class="fa-solid fa-play"></i> Chơi</button>
+                    <div class="lv-description"> Tìm đường nối pokemon và tránh các chướng ngại vật. </div>
+                    <button class=" play-level obstacle">Chơi</button>
                 </div>
                 <div class="lv-container" data-level="3">
                     <div class="lv-label night">Màn 3</div>
-                    <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
-                    <button class=" play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
+                    <div class="lv-description">Ghi nhớ vị trí pokemon trong chớp mắt và tìm các cặp giống nhau trong
+                        bóng tối.</div>
+                    <button class=" play-level night">Chơi</button>
                 </div>
                 <div class="lv-container" data-level="4">
                     <div class="lv-label gravity">Màn 4</div>
-                    <div class="lv-description">Trọng lực đảo chiều liên tục! Ăn 3 cặp là bàn cờ lại sụt lở sang hướng
-                        mới.
+                    <div class="lv-description">Ghép 3 cặp để đảo chiều trọng lực, khiến pokemon dịch chuyển và mở ra
+                        những đường nối mới.
                     </div>
-                    <button class=" play-level gravity"><i class="fa-solid fa-play"></i> Chơi</button>
+                    <button class=" play-level gravity">Chơi</button>
                 </div>
-                <div class="lv-container">
-                    <div class="lv-label obstacle"> Màn 2 </div>
-                    <div class="lv-description"> Tìm đường nối trái cây và tránh các chướng ngại vật. </div>
-                    <button class=" play-level obstacle"><i class="fa-solid fa-play"></i> Chơi</button>
+                <div class="lv-container" data-level="5">
+                    <div class="lv-label paradox"> Màn 5 </div>
+                    <div class="lv-description"> Tìm các cặp pokemon trước khi bàn cờ thay đổi, làm đảo lộn chiến thuật
+                        của bạn.</div>
+                    <button class=" play-level paradox">Chơi</button>
                 </div>
-                <div class="lv-container">
-                    <div class="lv-label night">Màn 3</div>
-                    <div class="lv-description">Khám phá và ghi nhớ vị trí trái cây để tìm các cặp giống nhau.</div>
-                    <button class=" play-level night"><i class="fa-solid fa-play"></i> Chơi</button>
+
+
+                <div class="lv-container" data-level="6">
+                    <div class="lv-label frozen">Màn 6</div>
+                    <div class="lv-description">Phá lớp băng đang đóng chặt các ô pokemon bằng những nước ghép thông
+                        minh.</div>
+                    <button class=" play-level frozen">Chơi</button>
+                </div>
+
+                <div class="lv-container" data-level="7">
+                    <div class="lv-label boss">Màn 7</div>
+                    <div class="lv-description">Ghép các cặp pokemon để gây sát thương, né đòn phản công và đánh bại
+                        Boss trước khi hết nước đi!</div>
+                    <button class=" play-level boss">Chơi</button>
                 </div>
             </div>
 
@@ -164,17 +914,17 @@
     <!-- màn hình welcome -->
     <div class="welcome-main">
         <div class="welcome-container">
-            <div class="header-welcome">Fruit Match</div>
             <div class="group-btn-welcome">
-                <div class="btn btn-play"><i class="fa-solid fa-play"></i> Chơi ngay</div>
-                <div class="btn btn-select-lv"><i class="fa-solid fa-leaf"></i> Chọn màn chơi</div>
-                <div class="btn instruct"><i class="fa-brands fa-readme"></i> Hướng dẫn</div>
+                <div class="btn btn-play"> Chơi ngay</div>
+                <div class="btn btn-select-lv"> Chọn màn chơi</div>
+                <div class="btn instruct"></i> Hướng dẫn</div>
             </div>
         </div>
 
     </div>
 
-    <script type="module" src="./js/game.js"></script>
+    <script src="./game.js"></script>
+
 </body>
 
 </html>
